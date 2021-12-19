@@ -14,7 +14,7 @@
                         </div>
                         <div class="dash_tile_bottom">
                             <p>Total Products</p>
-                            <h3>{{'1220'}}</h3>
+                            <h3>{{ $data['product'] ?? 0 }}</h3>
                         </div>
                     </a>
                 </div>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="dash_tile_bottom">
                             <p>Total Customers</p>
-                            <h3>{{'980'}}</h3>
+                            <h3>{{ $data['customer'] ?? 0 }}</h3>
                         </div>
                     </a>
                 </div>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="dash_tile_bottom">
                             <p>Total Bills</p>
-                            <h3>{{'101'}}</h3>
+                            <h3>{{ $data['bills'] ?? 0 }}</h3>
                         </div>
                     </a>
                 </div>

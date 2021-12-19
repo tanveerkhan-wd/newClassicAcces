@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\BillExport;
 use App\Helpers\FrontHelper;
 use App\Models\Bill;
 use App\Models\BillProduct;
@@ -40,7 +42,7 @@ class BillController extends Controller
     public function get(Request $request)
     {
         $data = $request->all();
-        $aTable = $this->data->with('products')->filter($data)->latest();
+        $aTable = $this->data->with('products','customer')->filter($data)->latest();
         $result = FrontHelper::getListing($data,$aTable);
         return response()->json($result);
     }
@@ -187,7 +189,8 @@ class BillController extends Controller
         $data = [];
         BillProduct::where('bill_id',$bill_id)->delete();
         $products = count($request->product_id);
-        if ($products >= 1) {
+
+        if ($products >= 1 && $request->product_id[0]) {
             for ($i=0; $i < $products ; $i++) { 
                 
                 $data[$i]['product_id'] =  $request->product_id[$i] ?? '';
@@ -197,6 +200,11 @@ class BillController extends Controller
             BillProduct::insert($data);
         }
     
+    }
+
+    public function downloadBill($id)
+    {
+        return Excel::download(new BillExport($id), $id.'bill.xlsx');
     }
     
 }

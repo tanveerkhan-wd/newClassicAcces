@@ -23,12 +23,11 @@ $(function() {
         "serverSide": true,
         "deferRender": true,
         "ajax": {
-            "url": base_url+"/admin/bill",
+            "url": base_url+"/admin/bills",
             "type": "POST",
             "dataType": 'json',
             "data": function ( d ) {
               d.search = $('#search').val();
-              d.customer_id = $('#customer_id').val();
               d.payment_status = $('#payment_status').val();
             }
         },
@@ -39,7 +38,7 @@ $(function() {
           { "data": "id",className: "text-center"},
           { "data": "km_head",className: "text-center",
             render: function (data, type, row) {
-              return row.km_head+' KM';
+              return row.customer.name;
             }
           },
           

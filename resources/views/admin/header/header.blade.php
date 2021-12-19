@@ -7,6 +7,9 @@
               <span>Toggle Sidebar</span>
           </button>
             <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item">
+                <a href="http://localhost/phpmyadmin/db_export.php?db=nca" target="_blank"><button type="button" class="theme_btn">Download Backup</button></a>
+              </li>
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="profile-cover">

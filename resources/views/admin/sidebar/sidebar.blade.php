@@ -30,6 +30,14 @@
             </a>
         </li>
 
+        <li class="{{ Request::is('admin/bills') || Request::is('admin/bills/*') ? 'active' : '' }}">
+            <a href="{{url('/admin/bills')}}">
+               <img src="{{ url('public/images/ic_monitor.png') }}" class="color">
+               <img src="{{ url('public/images/ic_monitor_color.png') }}" class="selected">
+                {{'Bills'}}
+            </a>
+        </li>
+
         <li class="{{ Request::is('admin/settings') || Request::is('admin/settings/*') ? 'active' : '' }}">
             <a href="{{url('/admin/settings')}}">
                <img src="{{ url('public/images/ic_business.png') }}" class="color">

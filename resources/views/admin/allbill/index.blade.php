@@ -1,6 +1,6 @@
 @extends('layout.app_with_login')
 @section('title','Bills')
-@section('script', url('public/js/dashboard/bill.js'))
+@section('script', url('public/js/dashboard/bills.js'))
 @section('content') 
 @php
 $payment_status = Config::get('constant.payment_status');
@@ -14,17 +14,19 @@ $payment_status = Config::get('constant.payment_status');
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-5 mb-3">
                 <input type="text" id="search" class="form-control without_border icon_control search_control" placeholder="{{'Search'}}">
-                <input id="customer_id" type="hidden" name="customer_id" value="{{request()->customer ?? ''}}">
             </div>  
-            <div class="col-md-4 text-md-right mb-3">
+            <div class="col-md-3 text-md-right mb-3">
                 <select class="form-control without_border icon_control dropdown_control" name="payment_status" id="payment_status">
                     <option value="">Select</option>
                     @foreach($payment_status as $kii=>$val)
                     <option value="{{$kii}}">{{$val}}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="col-md-2 mb-3">
+                <a href="{{url('admin/bills/download')}}"><button class="theme_btn full_width small_btn">{{'Download Bills'}}</button></a>
             </div>
             <div class="col-md-2 mb-3">
                 <a href="{{url('admin/bill/add')}}?customer={{request()->customer ?? ''}}"><button class="theme_btn full_width small_btn">{{'Add New'}}</button></a>
@@ -40,7 +42,7 @@ $payment_status = Config::get('constant.payment_status');
                                     <th>{{'Sr. No.'}}</th>
                                     <th>{{'Created at'}}</th>
                                     <th>{{'Bill No.'}}</th>
-                                    <th>{{'KM Head'}}</th>
+                                    <th>{{'Customer'}}</th>
                                     <th>{{'Products'}}</th>
                                     <th>{{'Total Amount'}}</th>
                                     <th>{{'Payment Status'}}</th>
@@ -118,7 +120,7 @@ $payment_status = Config::get('constant.payment_status');
 @endsection
 
 @push('custom-scripts')
-<script type="text/javascript" src="{{ url('public/js/dashboard/bill.js') }}"></script>
+<script type="text/javascript" src="{{ url('public/js/dashboard/bills.js') }}"></script>
 <script type="text/javascript">
     $(function() {
       showLoader(false);

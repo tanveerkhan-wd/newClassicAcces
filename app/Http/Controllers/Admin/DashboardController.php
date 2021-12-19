@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Customer;
+use App\Models\Bill;
 use App\User;
 use Storage;
 use Config;
@@ -14,7 +17,11 @@ class DashboardController extends Controller
 {
    	public function dashboard()
     {
-        return view('admin.dashboard.dashboard');
+        $data = [];
+        $data['product'] = Product::count();
+        $data['customer'] = Customer::count();
+        $data['bills'] = Bill::count();
+        return view('admin.dashboard.dashboard',compact('data'));
     }
 
 

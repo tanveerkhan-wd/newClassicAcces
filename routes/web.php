@@ -88,6 +88,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 			Route::post('/bill/add','BillController@addPost');
 			Route::post('/bill/status','BillController@status');
 			Route::post('/bill/destroy','BillController@destroy');
+			Route::get('/customer/download/singlebill/{id}','BillController@downloadBill');
+
+			/* ======== Routes For Admin All Bills ========== */
+			Route::get('/bills','BillsController@index');
+			Route::post('/bills','BillsController@get');
+			Route::get('/bills/download','BillsController@downloadBill');
 
 			/* ======== Routes For Admin Settings ========== */
 			Route::get('/settings','SettingController@index');
