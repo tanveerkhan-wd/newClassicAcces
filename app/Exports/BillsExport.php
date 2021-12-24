@@ -14,7 +14,7 @@ class BillsExport implements FromCollection,WithHeadings
     
     public function headings(): array {
         return [
-            "Date","Name","Mobile","Address","Bike Name","Bike Model","Bike No.","KM Head","Service Amount","Products","Sub Total","Discount","Total Amount","Payment Status","Notes"
+            "Bill Number","Date","Name","Mobile","Address","Bike Name","Bike Model","Bike No.","KM Head","Service Amount","Products","Sub Total","Discount","Total Amount","Payment Status","Notes"
         ];
     }
 
@@ -29,6 +29,7 @@ class BillsExport implements FromCollection,WithHeadings
                 $products[] = $valu->product->name;
             }
 
+            $output[$kii][] = $val->id;            
             $output[$kii][] = $val->created_at;            
             $output[$kii][] = $val->customer->name;            
             $output[$kii][] = $val->customer->mobile;            

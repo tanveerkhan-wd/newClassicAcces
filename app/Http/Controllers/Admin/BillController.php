@@ -9,8 +9,11 @@ use App\Exports\BillExport;
 use App\Helpers\FrontHelper;
 use App\Models\Bill;
 use App\Models\BillProduct;
+use App\Models\Accessories;
+use App\Models\BillAccessory;
 use App\Models\Product;
 use DB;
+use PDF;
 
 class BillController extends Controller
 {
@@ -42,7 +45,7 @@ class BillController extends Controller
     public function get(Request $request)
     {
         $data = $request->all();
-        $aTable = $this->data->with('products','customer')->filter($data)->latest();
+        $aTable = $this->data->with('products','customer','accessories')->filter($data)->latest();
         $result = FrontHelper::getListing($data,$aTable);
         return response()->json($result);
     }
@@ -54,8 +57,9 @@ class BillController extends Controller
      */
     public function add()
     {   
-        $product = Product::whereStatus(1)->get();
-        return view('admin.bill.add',compact('product'));
+        $accessories = Accessories::whereStatus(1)->where('quantity','>=',1)->get();
+        $product = Product::whereStatus(1)->where('quantity','>=',1)->get();
+        return view('admin.bill.add',compact('product','accessories'));
     }
 
     /**
@@ -66,8 +70,9 @@ class BillController extends Controller
     public function edit(Bill $id)
     {
         $editData = $id;
-        $product = Product::whereStatus(1)->get();
-        return view('admin.bill.edit',compact('product','editData'));
+        $accessories = Accessories::where('quantity','>=',1)->get();
+        $product = Product::where('quantity','>=',1)->get();
+        return view('admin.bill.edit',compact('product','editData','accessories'));
     }
 
     /**
@@ -90,6 +95,7 @@ class BillController extends Controller
                 
                 if($this->props($request)->save()){
                     $this->addBillProducts($id,$request);
+                    $this->addBillAccessory($id,$request);
                     DB::commit();
                     $response['status'] = true;
                     $response['message'] = "Bill Successfully Updated";  
@@ -106,6 +112,7 @@ class BillController extends Controller
                 if($this->props($request)->save()){
                     $id = $this->data->id;
                     $this->addBillProducts($id,$request);
+                    $this->addBillAccessory($id,$request);
                     DB::commit();
                     $response['status'] = true;
                     $response['message'] = "Bill Successfully Added";  
@@ -187,12 +194,28 @@ class BillController extends Controller
     private function addBillProducts($bill_id,$request)
     {
         $data = [];
-        BillProduct::where('bill_id',$bill_id)->delete();
-        $products = count($request->product_id);
+        /*Delete bilss products and update quantity of product*/
+        $expro = BillProduct::where('bill_id',$bill_id);
+        $exproget = $expro->get();
+        if (!$exproget->isEmpty()) {
+            foreach ($exproget as $val) {
+                $pro = Product::where('id',$val->product_id)->first();
+                $pro->quantity = $pro->quantity+1;
+                $pro->update();
+            }
+        }
+        $expro->delete();
 
+
+        /*Add New Bills product*/
+        $products = count($request->product_id);
         if ($products >= 1 && $request->product_id[0]) {
             for ($i=0; $i < $products ; $i++) { 
-                
+                if ($request->product_id[$i]) {
+                    $pro = Product::where('id',$request->product_id[$i])->first();
+                    $pro->quantity = $pro->quantity-1;
+                    $pro->update();
+                }
                 $data[$i]['product_id'] =  $request->product_id[$i] ?? '';
                 $data[$i]['bill_id'] =  $bill_id;
                 $data[$i]['created_at'] =  date("Y-m-d H:i:s");
@@ -202,9 +225,47 @@ class BillController extends Controller
     
     }
 
+    public function addBillAccessory($bill_id,$request)
+    {
+        $data = [];
+        /*Delete bilss products and update quantity of Accessory*/
+        $expro = BillAccessory::where('bill_id',$bill_id);
+        $exproget = $expro->get();
+        if (!$exproget->isEmpty()) {
+            foreach ($exproget as $val) {
+                $pro = Accessories::where('id',$val->accessory_id)->first();
+                $pro->quantity = $pro->quantity+1;
+                $pro->update();
+            }
+        }
+        $expro->delete();
+
+
+        /*Add New Bills Accessory*/
+        $products = count($request->accessory_id);
+        if ($products >= 1 && $request->accessory_id[0]) {
+            for ($i=0; $i < $products ; $i++) { 
+                if ($request->accessory_id[$i]) {
+                    $pro = Accessories::where('id',$request->accessory_id[$i])->first();
+                    $pro->quantity = $pro->quantity-1;
+                    $pro->update();
+                }
+                $data[$i]['accessory_id'] =  $request->accessory_id[$i] ?? '';
+                $data[$i]['bill_id'] =  $bill_id;
+                $data[$i]['created_at'] =  date("Y-m-d H:i:s");
+            }
+            BillAccessory::insert($data);
+        }
+    }
+
     public function downloadBill($id)
     {
-        return Excel::download(new BillExport($id), $id.'bill.xlsx');
+        $bill = Bill::where('id',$id)->first();
+        //return view('admin.pdf.bill',compact('bill'));
+        $pdf = PDF::setOptions(['chroot' => public_path()])->loadView('admin.pdf.bill', ['bill'=>$bill]);
+        $name = 'BILL '.$id.'.pdf';
+        return $pdf->download($name);
+
     }
     
 }

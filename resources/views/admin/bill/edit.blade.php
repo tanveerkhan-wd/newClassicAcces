@@ -70,6 +70,49 @@ $payment_status = Config::get('constant.payment_status');
                                                             <div class="form-group text-right">
                                                                 <button type="button" class="theme_btn small_btn addmoreproduct">+Add More Products</button>
                                                             </div>
+
+
+
+                                                            @forelse($editData->accessories as $key=>$value)
+                                                            <div class="form-group clon-accessory">
+                                                                <label>Accessories</label>
+                                                                <div class="remove_accessory @if($key==0) d-none @endif">
+                                                                    <img src="{{url('public/images/removepro.png')}}" style="width:32px">
+                                                                </div>
+                                                                <select class="form-control icon_control dropdown_control accessory_id" name="accessory_id[]">
+                                                                    <option value="">Select</option>
+                                                                    @foreach($accessories as $kii=> $val)
+                                                                    <option @if($val->id==$value->accessory_id) selected @endif data-price="{{$val->price ?? ''}}" value="{{$val->id ?? ''}}">{{$val->part_name ?? ''}} ---> ₹{{ $val->price ?? '' }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <input type="hidden" name="accessory_price[]" class="aceprice" value="{{$value->accessory->price ?? ''}}">
+                                                            </div>
+                                                            @empty
+                                                            <div class="form-group clon-accessory">
+                                                                <label>Accessories</label>
+                                                                <div class="remove_accessory d-none">
+                                                                    <img src="{{url('public/images/removepro.png')}}" style="width:32px">
+                                                                </div>
+                                                                <select class="form-control icon_control dropdown_control accessory_id" name="accessory_id[]">
+                                                                    <option value="">Select</option>
+                                                                    @foreach($accessories as $kii=> $val)
+                                                                    <option data-price="{{$val->price ?? ''}}" value="{{$val->id ?? ''}}">{{$val->part_name ?? ''}} ---> ₹{{ $val->price ?? '' }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <input type="hidden" name="accessory_price[]" class="aceprice" value="">
+                                                            </div>
+                                                            @endforelse
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-md-12 cloned-accessory">
+                                                                    
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group text-right">
+                                                                <button type="button" class="theme_btn small_btn addmoreaccesory">+Add More Accessories</button>
+                                                            </div>
                                                             <div class="form-group ">
                                                                 <label>KM. Head
                                                                 <span class="text-danger">*</span>
@@ -139,6 +182,7 @@ $payment_status = Config::get('constant.payment_status');
     .select2-container .select2-selection--single{height: 38px;}
     .aks-file-upload-delete{display: none;}
     .remove_product{position:absolute;right: -39px;cursor: pointer;}
+    .remove_accessory{position:absolute;right: -39px;cursor: pointer;}
 </style>
 @endpush
 @push('custom-scripts')

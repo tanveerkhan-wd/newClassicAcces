@@ -7,6 +7,7 @@
 return [
     'images_dirs' => [
         'USERS' => 'users',
+        'SETTING' => 'setting',
     ],
     'payment_status' => [
         1 => 'Pending',

@@ -25,6 +25,20 @@ $(document).on('change',"#login_upload_profile", function () {
   selectProfileDocImage(this,defaultImg,fileId,tempId);
 });
 
+$(document).on('change',"#upload_profile_pdf_logo", function () {
+  var tempId = "#img_pdf_logo";
+  var defaultImg = base_url+"/public/images/user.png";
+  var fileId = "#upload_profile_pdf_logo";
+  selectProfileDocImage(this,defaultImg,fileId,tempId);
+});
+
+$(document).on('change',"#upload_profile_signature", function () {
+  var tempId = "#img_signature";
+  var defaultImg = base_url+"/public/images/user.png";
+  var fileId = "#upload_profile_signature";
+  selectProfileDocImage(this,defaultImg,fileId,tempId);
+});
+
 function selectProfileDocImage(input,defaultImg,fileId,tempId){
     if (input.files && input.files[0]) {
       var reader = new FileReader();

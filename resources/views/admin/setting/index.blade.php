@@ -47,6 +47,35 @@
                                 </div>
                               </div>
 
+                                <div class="col-lg-6">
+                                  <label>{{'Bill PDF Logo'}}</label>
+                                  <div class="text-center">
+                                    <div class="profile_box">
+                                        <div class="square_pic">
+                                            <img id="img_pdf_logo" src="@if(Settings::has('general_setting_bill_pdf_logo')) {{ url('public/uploads/'.Settings::get('general_setting_bill_pdf_logo')) }} @else {{ url('public/images/user.png') }} @endif">
+                                        </div>
+                                        <div  class="upload_pic_link">
+                                            <a href="javascript:void(0)">
+                                            {{'Upload Image'}}<input type="file" id="upload_profile_pdf_logo" name="general_setting_bill_pdf_logo" accept="image/jpeg,image/png"></a>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <label>{{'Bill PDF Signature'}}</label>
+                                  <div class="text-center">
+                                    <div class="profile_box">
+                                        <div class="square_pic">
+                                            <img id="img_signature" src="@if(Settings::has('general_setting_signature')) {{ url('public/uploads/'.Settings::get('general_setting_signature')) }} @else {{ url('public/images/user.png') }} @endif">
+                                        </div>
+                                        <div  class="upload_pic_link">
+                                            <a href="javascript:void(0)">
+                                            {{'Upload Image'}}<input type="file" id="upload_profile_signature" name="general_setting_signature" accept="image/jpeg,image/png"></a>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+
                               <div class="col-12 text-center">
                                 <a class="theme_btn red_btn no_sidebar_active" href="{{ url('admin/settings') }}">{{'Cancel'}}
                                 </a><button class="theme_btn">Save</button>

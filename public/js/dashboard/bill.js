@@ -48,8 +48,13 @@ $(function() {
               var html = '';
               if (row.products) {
                 $.each(row.products,function (key, val) {
-                  console.log(val);
                   html += val.product.name+'- ₹'+val.product.price+'<br>'; 
+                });
+
+              }
+              if (row.accessories) {
+                $.each(row.accessories,function (key, val) {
+                  html += val.accessory.part_name+'- ₹'+val.accessory.price+'<br>'; 
                 });
 
               }
@@ -218,17 +223,41 @@ function confirmDelete(){
 
 
 
-/*Product Cloning*/
 $(function() {
 
+  /*Product Cloning*/
   $(".addmoreproduct").on('click',function(){
     $(".clon-product:first").clone().appendTo("div.cloned-products");
     $(".remove_product:last").removeClass("d-none");
+    $(".clon-product:last").find('select.product_id').val('');
+    $(".clon-product:last").find('select.product_id').attr('required',true);
   });
-
   /*End*/
+
+  /*Accesoory Cloning*/
+  $(".addmoreaccesory").on('click',function(){
+    $(".clon-accessory:first").clone().appendTo("div.cloned-accessory");
+    $(".remove_accessory:last").removeClass("d-none");
+    $(".clon-accessory:last").find('select.accessory_id').val('');
+    $(".clon-accessory:last").find('select.accessory_id').attr('required',true);
+  });
+  /*End*/
+
 });
 
+/*Accessory */
+$(document).on("change","select.accessory_id",function () {
+  var price = $(this).find('option:selected').attr('data-price');
+  $(this).parent().find("input.aceprice").val(price);
+  amountCal();
+})
+
+$(document).on("click",".remove_accessory",function () {
+    $(this).parent().remove();  
+    amountCal();
+});
+
+/*Products */
 $(document).on("change","select.product_id",function () {
   var price = $(this).find('option:selected').attr('data-price');
   $(this).parent().find("input.proprice").val(price);
@@ -250,13 +279,22 @@ $(document).on("change","input[name='discount']",function () {
 });
 
 function amountCal() {
+  /*Product amount */
   var aproduct_price = $('input[name="product_price[]"]').map(function(){return $(this).val();}).get();
 
   var total = 0;
   for (var i = 0; i < aproduct_price.length; i++) {
       total += aproduct_price[i] << 0;
   }
-  
+
+  /*Accessories amount */
+  var aAccesoryPrice = $('input[name="accessory_price[]"]').map(function(){return $(this).val();}).get();
+
+  for (var i = 0; i < aAccesoryPrice.length; i++) {
+      total += aAccesoryPrice[i] << 0;
+  }
+
+
   var service_amount = $("input[name='service_amount']").val();
   if (service_amount) {
     total = parseInt(total)+parseInt(service_amount);

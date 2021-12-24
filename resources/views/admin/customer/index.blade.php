@@ -14,8 +14,10 @@
             <div class="col-md-6 mb-3">
                 <input type="text" id="search" class="form-control without_border icon_control search_control" placeholder="{{'Search'}}">
             </div>  
-            <div class="col-md-4 text-md-right mb-3">
-                
+            <div class="col-md-2 mb-3">
+            </div>
+            <div class="col-md-2 mb-3">
+                <a href="{{url('admin/bills/download')}}"><button class="theme_btn full_width small_btn">{{'Download All Bills'}}</button></a>
             </div>
             <div class="col-md-2 mb-3">
                 <a href="{{url('admin/customer/add')}}"><button class="theme_btn full_width small_btn">{{'Add New'}}</button></a>

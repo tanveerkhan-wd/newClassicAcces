@@ -69,6 +69,15 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 			Route::post('/product/status','ProductController@status');
 			Route::post('/product/destroy','ProductController@destroy');
 
+			/* ======== Routes For Admin Accessories ========== */
+			Route::get('/accessories','AccessoryController@index')->name('admin.accessories');
+			Route::post('/accessories','AccessoryController@get');
+			Route::get('/accessories/add','AccessoryController@add')->name('admin.accessories.add');
+			Route::get('/accessories/edit/{id}','AccessoryController@edit')->name('admin.accessories.edit');
+			Route::post('/accessories/add','AccessoryController@addPost');
+			Route::post('/accessories/status','AccessoryController@status');
+			Route::post('/accessories/destroy','AccessoryController@destroy');
+
 			/* ======== Routes For Admin Customer ========== */
 			Route::get('/customer','CustomerController@index');
 			Route::post('/customer','CustomerController@get');

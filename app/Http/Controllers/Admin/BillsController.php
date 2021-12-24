@@ -8,8 +8,6 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\BillsExport;
 use App\Helpers\FrontHelper;
 use App\Models\Bill;
-use App\Models\BillProduct;
-use App\Models\Product;
 use DB;
 
 class BillsController extends Controller
@@ -43,7 +41,7 @@ class BillsController extends Controller
     public function get(Request $request)
     {
         $data = $request->all();
-        $aTable = $this->data->with('products','customer')->filterBills($data)->latest();
+        $aTable = $this->data->with('products','customer','accessories')->filterBills($data)->latest();
         $result = FrontHelper::getListing($data,$aTable);
         return response()->json($result);
     }

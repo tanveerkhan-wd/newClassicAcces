@@ -10,7 +10,7 @@ $payment_status = Config::get('constant.payment_status');
     <div class="container-fluid">
         <div class="row ">
             <div class="col-12 mb-3">
-                <h2 class="title"><a href="{{url('/admin/customer')}}"><span>{{'Customer'}}</span></a> > {{'Bills'}}</h2>
+                <h2 class="title">{{'Bills'}}</h2>
             </div>
         </div>
         <div class="row">
@@ -26,10 +26,10 @@ $payment_status = Config::get('constant.payment_status');
                 </select>
             </div>
             <div class="col-md-2 mb-3">
-                <a href="{{url('admin/bills/download')}}"><button class="theme_btn full_width small_btn">{{'Download Bills'}}</button></a>
+                
             </div>
             <div class="col-md-2 mb-3">
-                <a href="{{url('admin/bill/add')}}?customer={{request()->customer ?? ''}}"><button class="theme_btn full_width small_btn">{{'Add New'}}</button></a>
+                <a href="{{url('admin/bills/download')}}"><button class="theme_btn full_width small_btn">{{'Download Bills'}}</button></a>
             </div>
         </div>
         <div class="row">
@@ -43,7 +43,7 @@ $payment_status = Config::get('constant.payment_status');
                                     <th>{{'Created at'}}</th>
                                     <th>{{'Bill No.'}}</th>
                                     <th>{{'Customer'}}</th>
-                                    <th>{{'Products'}}</th>
+                                    <th>{{'Parts/Accessories'}}</th>
                                     <th>{{'Total Amount'}}</th>
                                     <th>{{'Payment Status'}}</th>
                                     <th><div class="action">{{'Actions'}}</div></th>

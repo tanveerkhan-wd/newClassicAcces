@@ -11,8 +11,8 @@ class Bill extends Model
     {
         $customer = $data['customer_id'] ?? '';
         $query->where('customer_id',$customer);
-
-        if ($data['search'] ?? false) {
+        $search = $data['search'];
+        if ($search ?? false) {
             $query->where( function ($query) use($search)
             {
                 $query->where('id','LIKE', '%'. $search . '%')
@@ -30,8 +30,8 @@ class Bill extends Model
 
     public function scopefilterBills($query,array $data)
     {
-        
-        if ($data['search'] ?? false) {
+        $search = $data['search'];
+        if ($search ?? false) {
             $query->where( function ($query) use($search)
             {
                 $query->where('id','LIKE', '%'. $search . '%')
@@ -57,6 +57,11 @@ class Bill extends Model
     public function products()
     {
         return $this->hasMany(BillProduct::class,'bill_id')->with('product');
+    }
+    
+    public function accessories()
+    {
+        return $this->hasMany(BillAccessory::class,'bill_id')->with('accessory');
     }
 
     public function customer()

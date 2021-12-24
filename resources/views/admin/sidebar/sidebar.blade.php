@@ -16,9 +16,17 @@
 
         <li class="{{ Request::is('admin/product') || Request::is('admin/product/*') ? 'active' : '' }}">
             <a href="{{url('/admin/product')}}">
-               <img src="{{ url('public/images/ic_cart.png') }}" class="color">
-               <img src="{{ url('public/images/ic_cart_color.png') }}" class="selected">
-                {{'Products'}}
+               <img src="{{ url('public/images/ic_monitor.png') }}" class="color">
+               <img src="{{ url('public/images/ic_monitor_color.png') }}" class="selected">
+                {{'Parts'}}
+            </a>
+        </li>
+
+        <li class="{{ Route::is('admin.accessories') || Request::is('admin/accessories/*') ? 'active' : '' }}">
+            <a href="{{route('admin.accessories')}}">
+               <img src="{{ url('public/images/ic_modules.png') }}" class="color">
+               <img src="{{ url('public/images/ic_modules_color.png') }}" class="selected">
+                {{'Accessories'}}
             </a>
         </li>
 

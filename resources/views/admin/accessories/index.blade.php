@@ -1,33 +1,25 @@
 @extends('layout.app_with_login')
-@section('title','Bills')
-@section('script', url('public/js/dashboard/bill.js'))
-@section('content') 
-@php
-$payment_status = Config::get('constant.payment_status');
-@endphp
+@section('title','Accessories')
+@section('script', url('public/js/dashboard/accessories.js'))
+@section('content')	
 <!-- Page Content  -->
 <div class="section">
-    <div class="container-fluid">
-        <div class="row ">
+	<div class="container-fluid">
+		<div class="row ">
             <div class="col-12 mb-3">
-                <h2 class="title"><a href="{{url('/admin/customer')}}"><span>{{'Customer'}}</span></a> > {{'Bills'}}</h2>
+    			<h2 class="title"> {{'Accessories'}}</h2>
             </div>
+            
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <input type="text" id="search" class="form-control without_border icon_control search_control" placeholder="{{'Search'}}">
-                <input id="customer_id" type="hidden" name="customer_id" value="{{request()->customer ?? ''}}">
             </div>  
-            <div class="col-md-4 text-md-right mb-3">
-                <select class="form-control without_border icon_control dropdown_control" name="payment_status" id="payment_status">
-                    <option value="">Select</option>
-                    @foreach($payment_status as $kii=>$val)
-                    <option value="{{$kii}}">{{$val}}</option>
-                    @endforeach
-                </select>
+            <div class="col-md-3 mb-3">
+               
             </div>
-            <div class="col-md-2 mb-3">
-                <a href="{{url('admin/bill/add')}}?customer={{request()->customer ?? ''}}"><button class="theme_btn full_width small_btn">{{'Add New'}}</button></a>
+            <div class="col-md-3 mb-3">
+                <a href="{{route('admin.accessories.add')}}"><button class="theme_btn full_width small_btn">{{'+ Add New Accessories'}}</button></a>
             </div>
         </div>
         <div class="row">
@@ -37,13 +29,15 @@ $payment_status = Config::get('constant.payment_status');
                         <table id="listing" class="display" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>{{'Sr. No.'}}</th>
+                                    <th>{{'Sr.'}}</th>
                                     <th>{{'Created at'}}</th>
-                                    <th>{{'Bill No.'}}</th>
-                                    <th>{{'KM Head'}}</th>
-                                    <th>{{'Parts/Accessories'}}</th>
-                                    <th>{{'Total Amount'}}</th>
-                                    <th>{{'Payment Status'}}</th>
+                                    <th>{{'Firm Name'}}</th>
+                                    <th>{{'Part No.'}}</th>
+                                    <th>{{'Part Name'}}</th>
+                                    <th>{{'Quantity'}}</th>
+                                    <th>{{'Rate'}}</th>
+                                    <th>{{'Amount'}}</th>
+                                    <th>{{'Status'}}</th>
                                     <th><div class="action">{{'Actions'}}</div></th>
                                 </tr>
                             </thead>
@@ -53,7 +47,7 @@ $payment_status = Config::get('constant.payment_status');
             </div>
         </div>
 
-    </div>
+	</div>
 </div>
 
 <div class="theme_modal modal fade" id="delete_prompt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -118,11 +112,11 @@ $payment_status = Config::get('constant.payment_status');
 @endsection
 
 @push('custom-scripts')
-<script type="text/javascript" src="{{ url('public/js/dashboard/bill.js') }}"></script>
 <script type="text/javascript">
     $(function() {
       showLoader(false);
     });
 </script>
 
+<script type="text/javascript" src="{{ url('public/js/dashboard/accessories.js') }}"></script>
 @endpush

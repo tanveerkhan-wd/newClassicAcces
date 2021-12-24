@@ -27,6 +27,7 @@ $payment_status = Config::get('constant.payment_status');
                                                         <div class="col-md-6">
                                                             <input type="hidden" name="pkCat">
                                                             <input type="hidden" name="customer_id" value="{{request()->customer ?? ''}}">
+
                                                             <div class="form-group clon-product">
                                                                 <label>Product</label>
                                                                 <div class="remove_product d-none">
@@ -47,6 +48,30 @@ $payment_status = Config::get('constant.payment_status');
                                                             </div>
                                                             <div class="form-group text-right">
                                                                 <button type="button" class="theme_btn small_btn addmoreproduct">+Add More Products</button>
+                                                            </div>
+
+                                                            <div class="form-group clon-accessory">
+                                                                <label>Accessories</label>
+                                                                <div class="remove_accessory d-none">
+                                                                    <img src="{{url('public/images/removepro.png')}}" style="width:32px">
+                                                                </div>
+                                                                <select class="form-control icon_control dropdown_control accessory_id" name="accessory_id[]">
+                                                                    <option value="">Select</option>
+                                                                    @foreach($accessories as $kii=> $val)
+                                                                    <option data-price="{{$val->price ?? ''}}" value="{{$val->id ?? ''}}">{{$val->part_name ?? ''}} ---> ₹{{ $val->price ?? '' }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <input type="hidden" name="accessory_price[]" class="aceprice" value="">
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12 cloned-accessory">
+                                                                    
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group text-right">
+                                                                <button type="button" class="theme_btn small_btn addmoreaccesory">+Add More Accessories</button>
                                                             </div>
                                                             <div class="form-group ">
                                                                 <label>KM. Head
@@ -117,6 +142,7 @@ $payment_status = Config::get('constant.payment_status');
     .select2-container .select2-selection--single{height: 38px;}
     .aks-file-upload-delete{display: none;}
     .remove_product{position:absolute;right: -39px;cursor: pointer;}
+    .remove_accessory{position:absolute;right: -39px;cursor: pointer;}
 </style>
 @endpush
 @push('custom-scripts')
