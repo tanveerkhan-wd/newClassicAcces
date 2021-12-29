@@ -243,13 +243,16 @@
                     {{ $val->product->name ?? '--' }}
                 </td>
                 <td class="title-4 text-c">
-                    {{ $val->product->quantity ?? '--' }}
+                    {{ $val->quantity ?? '--' }}
                 </td>
                 <td class="title-4 text-c">
                     {{ $val->product->price ?? '--' }}
                 </td>
                 <td class="title-4 text-c">
-                    {{ $val->product->price ?? '--' }}
+                    @php
+                        $totalPro = $val->product->price*$val->quantity;
+                    @endphp
+                    {{ $totalPro ?? '--' }}
                 </td>
             </tr>
             @endforeach
@@ -265,13 +268,16 @@
                     {{ $val->accessory->part_name ?? '--' }}
                 </td>
                 <td class="title-4 text-c">
-                    {{ $val->accessory->quantity ?? '--' }}
+                    {{ $val->quantity ?? '--' }}
                 </td>
                 <td class="title-4 text-c">
                     {{ $val->accessory->price ?? '--' }}
                 </td>
                 <td class="title-4 text-c">
-                    {{ $val->accessory->price ?? '--' }}
+                    @php
+                        $totalAcc = $val->accessory->price*$val->quantity;
+                    @endphp
+                    {{ $totalAcc ?? '--' }}
                 </td>
             </tr>
             @endforeach

@@ -17,6 +17,7 @@ class CreateBillProductsTable extends Migration
             $table->id();
             $table->bigInteger('bill_id')->unsigned();
             $table->bigInteger('product_id')->unsigned();
+            $table->bigInteger('quantity')->nullable()->default(1);
             $table->timestamps();
             $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

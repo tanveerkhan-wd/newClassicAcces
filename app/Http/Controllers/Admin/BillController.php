@@ -70,8 +70,8 @@ class BillController extends Controller
     public function edit(Bill $id)
     {
         $editData = $id;
-        $accessories = Accessories::where('quantity','>=',1)->get();
-        $product = Product::where('quantity','>=',1)->get();
+        $accessories = Accessories::get();
+        $product = Product::get();
         return view('admin.bill.edit',compact('product','editData','accessories'));
     }
 
@@ -161,7 +161,34 @@ class BillController extends Controller
              $response['status'] = false;
         }else{
             $data = $this->data->where('id',$cid)->first();
+            
+            /*PRODUCT DELETE */
+            $expro = BillProduct::where('bill_id',$data->id);
+            $exproget = $expro->get();
+            if (!$exproget->isEmpty()) {
+                foreach ($exproget as $val) {
+                    $pro = Product::where('id',$val->product_id)->first();
+                    $pro->quantity = $pro->quantity+$val->quantity;
+                    $pro->update();
+                }
+            }
+            $expro->delete();
+            /*ACCESSORY DELETE */
+            $expro = '';
+            $expro = BillAccessory::where('bill_id',$data->id);
+            $exproget = $expro->get();
+            if (!$exproget->isEmpty()) {
+                foreach ($exproget as $val) {
+                    $pro = Accessories::where('id',$val->accessory_id)->first();
+                    $pro->quantity = $pro->quantity+$val->quantity;
+                    $pro->update();
+                }
+            }
+            $expro->delete();
+
+            /*BIll DELETE*/
             $data = $data->delete();
+
             if ($data) {
                 $response['status'] = true;
                 $response['message'] = "Delete Successfully";
@@ -200,7 +227,7 @@ class BillController extends Controller
         if (!$exproget->isEmpty()) {
             foreach ($exproget as $val) {
                 $pro = Product::where('id',$val->product_id)->first();
-                $pro->quantity = $pro->quantity+1;
+                $pro->quantity = $pro->quantity+$val->quantity;
                 $pro->update();
             }
         }
@@ -213,10 +240,11 @@ class BillController extends Controller
             for ($i=0; $i < $products ; $i++) { 
                 if ($request->product_id[$i]) {
                     $pro = Product::where('id',$request->product_id[$i])->first();
-                    $pro->quantity = $pro->quantity-1;
+                    $pro->quantity = $pro->quantity-$request->quantity[$i];
                     $pro->update();
                 }
                 $data[$i]['product_id'] =  $request->product_id[$i] ?? '';
+                $data[$i]['quantity'] =  $request->quantity[$i] ?? '';
                 $data[$i]['bill_id'] =  $bill_id;
                 $data[$i]['created_at'] =  date("Y-m-d H:i:s");
             }
@@ -234,7 +262,7 @@ class BillController extends Controller
         if (!$exproget->isEmpty()) {
             foreach ($exproget as $val) {
                 $pro = Accessories::where('id',$val->accessory_id)->first();
-                $pro->quantity = $pro->quantity+1;
+                $pro->quantity = $pro->quantity+$val->quantity;
                 $pro->update();
             }
         }
@@ -247,10 +275,11 @@ class BillController extends Controller
             for ($i=0; $i < $products ; $i++) { 
                 if ($request->accessory_id[$i]) {
                     $pro = Accessories::where('id',$request->accessory_id[$i])->first();
-                    $pro->quantity = $pro->quantity-1;
+                    $pro->quantity = $pro->quantity-$request->acc_quantity[$i];
                     $pro->update();
                 }
                 $data[$i]['accessory_id'] =  $request->accessory_id[$i] ?? '';
+                $data[$i]['quantity'] =  $request->acc_quantity[$i] ?? '';
                 $data[$i]['bill_id'] =  $bill_id;
                 $data[$i]['created_at'] =  date("Y-m-d H:i:s");
             }

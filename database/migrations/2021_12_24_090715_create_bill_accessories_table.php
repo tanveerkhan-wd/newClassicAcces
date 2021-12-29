@@ -17,6 +17,7 @@ class CreateBillAccessoriesTable extends Migration
             $table->id();
             $table->bigInteger('bill_id')->unsigned();
             $table->bigInteger('accessory_id')->unsigned();
+            $table->bigInteger('quantity')->nullable()->default(1);
             $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade');
             $table->foreign('accessory_id')->references('id')->on('accessories')->onDelete('cascade');
             $table->timestamps();

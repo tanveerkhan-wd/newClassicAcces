@@ -222,8 +222,29 @@ function confirmDelete(){
 }
 
 
-
 $(function() {
+  /*On Check Product and Accssory*/
+  $("input[name='check_pro']").on('change',function () {
+    if($(this).is(':checked')){
+      $(".product_box").removeClass('d-none');
+    }
+    else{
+      $(".product_box").addClass('d-none');
+      $(".cloned-products").empty();
+      $(".product_id").val('');
+    }
+  });
+  $("input[name='check_accc']").on('change',function () {
+    if($(this).is(':checked')){
+      $(".accessory_box").removeClass('d-none');
+    }
+    else{
+      $(".accessory_box").addClass('d-none');
+      $(".cloned-accessory").empty();
+      $(".accessory_id").val('');
+    }
+  });
+  /*End*/
 
   /*Product Cloning*/
   $(".addmoreproduct").on('click',function(){
@@ -231,6 +252,7 @@ $(function() {
     $(".remove_product:last").removeClass("d-none");
     $(".clon-product:last").find('select.product_id').val('');
     $(".clon-product:last").find('select.product_id').attr('required',true);
+    $(".pro-quantity:last").val('');
   });
   /*End*/
 
@@ -278,20 +300,34 @@ $(document).on("change","input[name='discount']",function () {
     amountCal();
 });
 
+/*On Change Product Quantity && Accessories Quantity*/
+
+$(document).on("keyup","input.pro-quantity",function () {
+   amountCal(); 
+});
+
+$(document).on("keyup","input.acc-quantity",function () {
+   amountCal(); 
+});
+/*end*/
+  
+
 function amountCal() {
   /*Product amount */
   var aproduct_price = $('input[name="product_price[]"]').map(function(){return $(this).val();}).get();
+  var aproduct_qty = $('input[name="quantity[]"]').map(function(){return $(this).val();}).get();
+  var acce_qty = $('.acc-quantity').map(function(){return $(this).val();}).get();
 
   var total = 0;
   for (var i = 0; i < aproduct_price.length; i++) {
-      total += aproduct_price[i] << 0;
+      total += aproduct_price[i]*parseInt(aproduct_qty[i]) << 0;
   }
 
   /*Accessories amount */
   var aAccesoryPrice = $('input[name="accessory_price[]"]').map(function(){return $(this).val();}).get();
 
   for (var i = 0; i < aAccesoryPrice.length; i++) {
-      total += aAccesoryPrice[i] << 0;
+      total += parseInt(aAccesoryPrice[i])*parseInt(acce_qty[i]) << 0;
   }
 
 
@@ -310,3 +346,4 @@ function amountCal() {
   $("input[name='total_amount']").val(total);
   
 }
+

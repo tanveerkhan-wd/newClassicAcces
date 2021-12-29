@@ -19,9 +19,10 @@ Route::get('/clear', function() {
    Artisan::call('view:clear');
    return "Cleared!";
 });
-Route::get('/cache', function() {
-   
-   return "Cached!";
+Route::get('/migrated', function() {
+   /*Artisan::call('migrate:refresh --path=database/migrations/2021_12_15_095941_create_bill_products_table.php');
+   Artisan::call('migrate:refresh --path=database/migrations/2021_12_24_090715_create_bill_accessories_table.php');
+   return "migrated";*/
 });
 
 
