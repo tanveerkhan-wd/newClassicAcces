@@ -23,6 +23,7 @@
                                                         <div class="col-md-3"></div>
                                                         <div class="col-md-6">
                                                             <input type="hidden" name="pkCat">
+                                                            <input type="hidden" name="bill_id" value="{{request()->bill ?? ''}}">
                                                              <div class="form-group ">
                                                                 <label>Name
                                                                 <span class="text-danger">*</span>

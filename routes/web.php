@@ -103,6 +103,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 			/* ======== Routes For Admin All Bills ========== */
 			Route::get('/bills','BillsController@index');
 			Route::post('/bills','BillsController@get');
+			Route::get('/bills/add','BillController@add');
 			Route::get('/bills/download','BillsController@downloadBill');
 
 			/* ======== Routes For Admin Settings ========== */

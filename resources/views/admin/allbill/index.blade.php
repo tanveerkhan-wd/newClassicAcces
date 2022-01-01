@@ -26,7 +26,7 @@ $payment_status = Config::get('constant.payment_status');
                 </select>
             </div>
             <div class="col-md-2 mb-3">
-                
+                <a href="{{url('admin/bills/add')}}"><button class="theme_btn full_width small_btn">{{'Add Bill Direct'}}</button></a>
             </div>
             <div class="col-md-2 mb-3">
                 <a href="{{url('admin/bills/download')}}"><button class="theme_btn full_width small_btn">{{'Download Bills'}}</button></a>

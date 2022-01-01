@@ -15,7 +15,8 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('customer_id')->unsigned();
+            $table->bigInteger('customer_id')->unsigned()->nullable();
+            $table->string('bill_no',250);
             $table->bigInteger('km_head');
             $table->float('service_amt',10,2)->default(0)->nullable();
             $table->float('sub_amt',10,2)->default(0);

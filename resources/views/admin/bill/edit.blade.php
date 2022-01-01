@@ -158,104 +158,24 @@ $payment_status = Config::get('constant.payment_status');
                                                             </div>
                                                         </div>
                                                     </div>
-                                                        {{-- <div class="col-md-3"></div>
-                                                        <div class="col-md-6"> --}}
-                                                            
-
-                                                            {{-- @forelse($editData->products as $key=>$value)
-                                                            <div class="form-group clon-product">
-                                                                <label>Product</label>
-                                                                <div class="remove_product @if($key==0) d-none @endif">
-                                                                    <img src="{{url('public/images/removepro.png')}}" style="width:32px">
-                                                                </div>
-                                                                <select class="form-control icon_control dropdown_control product_id" name="product_id[]">
-                                                                    <option value="">Select</option>
-                                                                    @foreach($product as $kii=> $val)
-                                                                    <option @if($val->id==$value->product_id) selected @endif data-price="{{$val->price ?? ''}}" value="{{$val->id ?? ''}}">{{$val->name ?? ''}} ---> ₹{{ $val->price ?? '' }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <input type="hidden" name="product_price[]" class="proprice" value="{{$value->product->price ?? ''}}">
-                                                            </div>
-                                                            @empty
-                                                            <div class="form-group clon-product">
-                                                                <label>Product</label>
-                                                                <div class="remove_product d-none ">
-                                                                    <img src="{{url('public/images/removepro.png')}}" style="width:32px">
-                                                                </div>
-                                                                <select class="form-control icon_control dropdown_control product_id" name="product_id[]">
-                                                                    <option value="">Select</option>
-                                                                    @foreach($product as $kii=> $val)
-                                                                    <option data-price="{{$val->price ?? ''}}" value="{{$val->id ?? ''}}">{{$val->name ?? ''}} ---> ₹{{ $val->price ?? '' }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <input type="hidden" name="product_price[]" class="proprice" value="">
-                                                            </div>
-                                                            @endforelse
-                                                            <div class="row">
-                                                                <div class="col-md-12 cloned-products">
-                                                                    
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group text-right">
-                                                                <button type="button" class="theme_btn small_btn addmoreproduct">+Add More Products</button>
-                                                            </div> --}}
-
-
-
-                                                           {{--  @forelse($editData->accessories as $key=>$value)
-                                                            <div class="form-group clon-accessory">
-                                                                <label>Accessories</label>
-                                                                <div class="remove_accessory @if($key==0) d-none @endif">
-                                                                    <img src="{{url('public/images/removepro.png')}}" style="width:32px">
-                                                                </div>
-                                                                <select class="form-control icon_control dropdown_control accessory_id" name="accessory_id[]">
-                                                                    <option value="">Select</option>
-                                                                    @foreach($accessories as $kii=> $val)
-                                                                    <option @if($val->id==$value->accessory_id) selected @endif data-price="{{$val->price ?? ''}}" value="{{$val->id ?? ''}}">{{$val->part_name ?? ''}} ---> ₹{{ $val->price ?? '' }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <input type="hidden" name="accessory_price[]" class="aceprice" value="{{$value->accessory->price ?? ''}}">
-                                                            </div>
-                                                            @empty
-                                                            <div class="form-group clon-accessory">
-                                                                <label>Accessories</label>
-                                                                <div class="remove_accessory d-none">
-                                                                    <img src="{{url('public/images/removepro.png')}}" style="width:32px">
-                                                                </div>
-                                                                <select class="form-control icon_control dropdown_control accessory_id" name="accessory_id[]">
-                                                                    <option value="">Select</option>
-                                                                    @foreach($accessories as $kii=> $val)
-                                                                    <option data-price="{{$val->price ?? ''}}" value="{{$val->id ?? ''}}">{{$val->part_name ?? ''}} ---> ₹{{ $val->price ?? '' }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <input type="hidden" name="accessory_price[]" class="aceprice" value="">
-                                                            </div>
-                                                            @endforelse
-                                                            
-                                                            <div class="row">
-                                                                <div class="col-md-12 cloned-accessory">
-                                                                    
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="form-group text-right">
-                                                                <button type="button" class="theme_btn small_btn addmoreaccesory">+Add More Accessories</button>
-                                                            </div>
-
-                                                            <div class="col-md-3"></div>
-                                                        </div>
-                                                    </div> --}}
-
+                                                        
                                                     <hr class="style14">
                                                     <div class="row">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group ">
+                                                                <label>Bill Number
+                                                                <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input required="" class="form-control" type="number" name="bill_no" value="{{ $editData->bill_no ?? '' }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
                                                             <div class="form-group ">
                                                                 <label>BILL NO.</label>
                                                                 <input class="form-control" disabled value="{{$editData->id ?? ''}}">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
                                                             <div class="form-group ">
                                                                 <label>KM. Head
                                                                 <span class="text-danger">*</span>
@@ -264,7 +184,7 @@ $payment_status = Config::get('constant.payment_status');
                                                             </div>
                                                         </div>
                                                         
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
                                                             <div class="form-group ">
                                                                 <label>Service Amount</label>
                                                                 <input class="form-control" type="number" name="service_amount" value="{{ $editData->service_amt ?? '' }}">

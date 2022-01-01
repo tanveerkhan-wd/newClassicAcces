@@ -18,7 +18,7 @@ $(function() {
             "next": $('#next_txt').val()
           }
         },
-        "lengthMenu": [10,20,30,50],
+        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
         "searching": false,
         "serverSide": true,
         "deferRender": true,
@@ -36,7 +36,7 @@ $(function() {
           { "data": "index",className: "text-center"},
           
           { "data": "createdat",className: "text-center",sortable:!1},
-          { "data": "id",className: "text-center"},
+          { "data": "bill_no",className: "text-center"},
           { "data": "km_head",className: "text-center",
             render: function (data, type, row) {
               return row.km_head+' KM';

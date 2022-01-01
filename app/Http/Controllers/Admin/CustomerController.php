@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Exports\CustomerBillExport;
 use App\Helpers\FrontHelper;
 use App\Models\Customer;
+use App\Models\Bill;
 use DB;
 
 class CustomerController extends Controller
@@ -99,6 +100,9 @@ class CustomerController extends Controller
             {
                 if($this->props($request)->save()){
                     $id = $this->data->id;
+                    if ($request->bill_id ?? false) {
+                        Bill::where('id',$request->bill_id)->update(['customer_id'=>$id]);
+                    }
                     DB::commit();
                     $response['status'] = true;
                     $response['message'] = "Customer Successfully Added";  

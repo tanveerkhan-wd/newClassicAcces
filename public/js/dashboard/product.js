@@ -17,7 +17,7 @@ $(function() {
             "next": $('#next_txt').val()
           }
         },
-        "lengthMenu": [10,20,30,50],
+        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
         "searching": false,
         "serverSide": true,
         "deferRender": true,

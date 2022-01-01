@@ -141,7 +141,13 @@ class FrontHelper {
         
       $counter = $offset;
       $aTabledata = [];
-      $aTables = $aTableQuery->offset($offset)->limit($perpage)->get()->toArray();
+      
+      if ($perpage== -1) {
+         $aTables = $aTableQuery->get()->toArray();
+      }
+      else{
+         $aTables = $aTableQuery->offset($offset)->limit($perpage)->get()->toArray();
+      }
         
       foreach ($aTables as $key => $value) 
       {

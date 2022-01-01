@@ -141,7 +141,7 @@
                     Bill Number:
                 </th>
                 <td class="title-3 text-l underline" width="40%">
-                    {{ $bill->id ?? '--' }}
+                    {{ $bill->bill_no ?? '--' }}
                 </td>
 
                 <th class="title-3 text-r" width="20%">

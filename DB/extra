@@ -3,3 +3,10 @@ Done points
 2. Change process of updating bill in edit bill page (process change with updating product and accessory with quantity )
 3. Change pdf according to quantity of product and accessories
 4. on delete bill product and accessory quantity will increase
+5. add & update bill number manually(Changes in  add_bill, edit_bill, export_bill,PDF)
+6. add new option to show all data in table
+7. only first bill generation then user create.
+
+
+ALTER TABLE `bills` ADD `bill_no` VARCHAR(250) NOT NULL AFTER `customer_id`;
+ALTER TABLE `bills` CHANGE `customer_id` `customer_id` BIGINT(20) UNSIGNED NULL DEFAULT NULL;

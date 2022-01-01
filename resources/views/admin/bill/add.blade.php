@@ -13,7 +13,12 @@ $payment_status = Config::get('constant.payment_status');
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12 mb-3">
-                           <h2 class="title"><a href="{{url('/admin/customer')}}"><span>{{'Customer'}}</span></a> > <a href="{{url('/admin/bill')}}?customer={{request()->customer ?? ''}}"><span>{{'Bill'}}</span></a> > {{' Add New '}}</h2>
+                           <h2 class="title">
+                            @if(Request::is('admin/bills/add'))
+                                <a href="{{url('/admin/bills')}}"><span>{{'Bills'}}</span></a> > {{' Add New '}}</h2>
+                            @else
+                            <a href="{{url('/admin/customer')}}"><span>{{'Customer'}}</span></a> > <a href="{{url('/admin/bill')}}?customer={{request()->customer ?? ''}}"><span>{{'Bill'}}</span></a> > {{' Add New '}}</h2>
+                            @endif
                         </div> 
                         <div class="col-12">
                             <div class="white_box pt-5 pb-5">
@@ -111,7 +116,15 @@ $payment_status = Config::get('constant.payment_status');
                                                     <br>
                                                     <hr class="style14">
                                                     <div class="row">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group ">
+                                                                <label>Bill Number
+                                                                <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input required="" class="form-control" type="number" name="bill_no">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
                                                             <div class="form-group ">
                                                                 <label>KM. Head
                                                                 <span class="text-danger">*</span>
@@ -119,13 +132,13 @@ $payment_status = Config::get('constant.payment_status');
                                                                 <input required="" class="form-control" type="number" name="km_head">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
                                                             <div class="form-group ">
                                                                 <label>Service Amount</label>
                                                                 <input class="form-control" type="number" name="service_amount">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
                                                             <div class="form-group ">
                                                                 <label>Sub Amount
                                                                 <span class="text-danger">*</span>
@@ -172,7 +185,12 @@ $payment_status = Config::get('constant.payment_status');
                                                     </div>
 
                                                     <div class="text-center">
-                                                        <a class="theme_btn red_btn" href="{{url('/admin/bill')}}?customer={{request()->customer ?? ''}}">Cancel</a>
+                                                        @if(Request::is('admin/bills/add'))
+                                                            <a class="theme_btn red_btn" href="{{url('/admin/bills')}}">Cancel</a>
+                                                        @else
+                                                            <a class="theme_btn red_btn" href="{{url('/admin/bill')}}?customer={{request()->customer ?? ''}}">Cancel</a>
+                                                        @endif
+                                                        
                                                         <button class="theme_btn">Create</button>
                                                     </div>
                                                 </div>

@@ -14,22 +14,24 @@ class BillsExport implements FromCollection,WithHeadings
     
     public function headings(): array {
         return [
-            "Bill Number","Date","Name","Mobile","Address","Bike Name","Bike Model","Bike No.","KM Head","Service Amount","Products","Sub Total","Discount","Total Amount","Payment Status","Notes"
+            "Bill Number","Date","Name","Mobile","Address","Bike Name","Bike Model","Bike No.","KM Head","Service Amount","Products","Quantity","Sub Total","Discount","Total Amount","Payment Status","Notes"
         ];
     }
 
     public function collection()
     {
-         $output = [];
+        $output = [];
         $data = Bill::latest()->get();
         foreach ($data as $kii=>$val) {
 
+            $quantity = [];
             $products = [];
             foreach ($val->products as $kiii => $valu) {
                 $products[] = $valu->product->name;
+                $quantity[] = $valu->quantity;
             }
 
-            $output[$kii][] = $val->id;            
+            $output[$kii][] = $val->bill_no;            
             $output[$kii][] = $val->created_at;            
             $output[$kii][] = $val->customer->name;            
             $output[$kii][] = $val->customer->mobile;            
@@ -40,6 +42,7 @@ class BillsExport implements FromCollection,WithHeadings
             $output[$kii][] = $val->km_head;            
             $output[$kii][] = $val->service_amt;            
             $output[$kii][] = $products? implode(",", $products):'--';           
+            $output[$kii][] = $quantity? implode(",", $quantity):'--';           
             $output[$kii][] = $val->sub_amt;            
             $output[$kii][] = $val->discount;            
             $output[$kii][] = $val->total_amt;

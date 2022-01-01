@@ -18,7 +18,7 @@ $(function() {
             "next": $('#next_txt').val()
           }
         },
-        "lengthMenu": [10,20,30,50],
+        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
         "searching": false,
         "serverSide": true,
         "deferRender": true,
@@ -35,10 +35,10 @@ $(function() {
           { "data": "index",className: "text-center"},
           
           { "data": "createdat",className: "text-center",sortable:!1},
-          { "data": "id",className: "text-center"},
+          { "data": "bill_no",className: "text-center"},
           { "data": "km_head",className: "text-center",
             render: function (data, type, row) {
-              return row.customer.name;
+              return row.customer ? row.customer.name : '--';
             }
           },
           
@@ -94,11 +94,18 @@ $(function() {
           },         
           { "data": "action", sortable:!1,
             render: function (data, type, row) {
+              var custMobile = row.customer ? row.customer.mobile :'';
+
               var deletes = '<a onclick="triggerDelete('+row.id+')" href="javascript:void(0)"><img src="'+imagepath+'/ic_delete.png"></a>';
               var edit = '<a href="'+base_url+'/admin/bill/edit/'+row.id+'"><img src="'+imagepath+'/ic_mode_edit.png"></a>';
               var downloadbill = '<a href="'+base_url+'/admin/customer/download/singlebill/'+row.id+'"><img src="'+imagepath+'/download.png"></a>';
-              var whatsapp = '<a href="https://wa.me/91'+row.customer.mobile+'" target="_blank"><img src="'+imagepath+'/icons8-whatsapp-18.png"></a>';
-              return  edit + '&nbsp;&nbsp;&nbsp;'+ deletes+'&nbsp;&nbsp;&nbsp;<br>'+downloadbill + '&nbsp;&nbsp;&nbsp;' + whatsapp;;
+              var whatsapp = '<a href="https://wa.me/91'+custMobile+'" target="_blank"><img src="'+imagepath+'/icons8-whatsapp-18.png"></a>';
+              if (row.customer) {
+                var user = '';
+              }else{
+                var user = '<a href="'+base_url+'/admin/customer/add?bill='+row.id+'" target="_blank"><img src="'+imagepath+'/icons8-add-user-male-24.png"></a>';
+              }
+              return  edit + '&nbsp;&nbsp;&nbsp;'+ deletes+'&nbsp;&nbsp;&nbsp;<br>'+downloadbill + '&nbsp;&nbsp;&nbsp;' + whatsapp+ '&nbsp;&nbsp;&nbsp;' +user;
             }
           },
       ],

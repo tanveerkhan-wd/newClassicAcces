@@ -202,6 +202,7 @@ class BillController extends Controller
     private function props(Request $request)
     {
         $this->data->customer_id = $request->customer_id;
+        $this->data->bill_no = $request->bill_no;
         $this->data->km_head = $request->km_head;
         $this->data->service_amt = $request->service_amount;
         $this->data->sub_amt = $request->sub_amount;
